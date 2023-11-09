@@ -1,0 +1,44 @@
+
+f = @(x) x.^3 - x - 2;
+
+
+a = input('Enter the lower limit, a: ');
+b = input('Enter the upper limit, b: ');
+
+
+tol = 1e-5;
+
+roots = [];
+
+
+while (b - a >= tol)
+    c = (a + b)/2;
+    
+    % Store the root of each iteration in the matrix
+    roots = [roots; c];
+    
+    if (f(c) == 0.0)
+        break;
+    elseif (f(c)*f(a) < 0)
+        b = c;
+    else
+        a = c;
+    end
+end
+
+% Display the roots
+disp('The roots found at each iteration are:');
+disp(roots);
+
+% Plot the function and the roots
+x = linspace(a, b, 1000);
+y = f(x);
+
+figure;
+plot(x, y, 'LineWidth', 2);
+hold on;
+plot(roots, f(roots), 'ro');
+xlabel('x');
+ylabel('f(x)');
+title('Root Finding using Bisection Method');
+grid on;
