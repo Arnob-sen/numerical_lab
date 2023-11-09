@@ -1,0 +1,48 @@
+
+f = @(x) x.^3 - x - 2;
+df = @(x) 3*x.^2 - 1;
+
+% Define the initial guess
+x0 = input('Enter the initial guess, x0: ');
+
+% Define the tolerance
+tol = 1e-5;
+
+% Initialize the matrix to store roots
+roots = [];
+
+% Newton-Raphson method
+x = x0;
+while abs(f(x)) >= tol
+    % Store the root of each iteration in the matrix
+    roots = [roots; x];
+    
+    % Update x
+    x = x - f(x)/df(x);
+end
+roots = [roots; x];  % Store the final root
+
+% Display the roots
+disp('The roots found at each iteration are:');
+disp(roots);
+
+% Plot the function and the roots
+x_vals = linspace(min(roots)-1, max(roots)+1, 1000);
+y_vals = f(x_vals);
+
+figure;
+plot(x_vals, y_vals, 'LineWidth', 2);
+hold on;
+plot(roots, f(roots), 'ro');
+xlabel('x');
+ylabel('f(x)');
+title('Root Finding using Newton-Raphson Method');
+
+% Plot the tangent line at each iteration
+for i = 1:length(roots)
+    x_tan = linspace(roots(i)-1, roots(i)+1, 100);
+    y_tan = df(roots(i))*(x_tan - roots(i)) + f(roots(i));
+    plot(x_tan, y_tan, '--');
+end
+
+grid on;
