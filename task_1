@@ -1,0 +1,17 @@
+A = input('Enter matrix A: ');
+B = input('Enter matrix B: ');
+
+maxA = max(A(:));
+fprintf('The maximum value in matrix A is: %d\n', maxA);
+
+
+[rowsA, colsA] = size(A);
+[rowsB, colsB] = size(B);
+
+if colsA == rowsB
+    C = A * B;
+    disp('The result of the multiplication of matrix A and B is:');
+    disp(C);
+else
+    disp('Matrix multiplication is not possible as the number of columns in A does not match the number of rows in B.');
+end
